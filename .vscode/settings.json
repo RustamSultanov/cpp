@@ -1,5 +1,14 @@
 {
     "files.associations": {
-        "iostream": "cpp"
-    }
+        "iostream": "cpp",
+        "*.tcc": "cpp"
+    },
+    "code-runner.clearPreviousOutput": true,
+    // "cpplint.cpplintPath" : "/usr/bin/cpplint",
+    // "cpplint.verbose" : 1,
+    "cppcheck.cppcheckPath" : "/usr/bin/cppcheck",
+    "cppcheck.lintingEnabled": true,
+    "cppcheck.enable": true,
+    "cppcheck.showStatusBarItem": true,
+    "cppcheck.outputCommandLine": true
 }

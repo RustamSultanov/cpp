@@ -12,20 +12,27 @@ int phi (int n) {
             res -= res/i; 
         }
     }
-    if (n > 1)
+    
+
+    if (n > 1) {
+        cout << res << " " << n << " " << res/n << endl;
 		res -= res/n; 
+        cout << "ans: " << res << endl << endl;
+    }
 	return res;
 }
-
 
 int main(int argc, char *argv[]) {
     cout << "gdfgf" << endl;
 	
-	cout << phi(1) << endl;
-	cout << phi(2) << endl;
-	cout << phi(3) << endl;
-	cout << phi(4) << endl;
-	cout << phi(11) << endl;
+	for ( int i =1; i < 10; i++) {
+        // if (phi(i) != phi0(i)) {
+        //     cout << phi(i) << "!=" <<  phi0(i) << endl;
+        // }
+        cout << i << endl;
+        phi(i);
+        
+    }
     // system("pause");
 
 } 
