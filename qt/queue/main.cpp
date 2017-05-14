@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     queue *q;
-    q = (queue*)malloc(sizeof(queue*));
+    q = (queue*)malloc(sizeof(queue));
 
     create_queue(q);
     push(q, 0);
