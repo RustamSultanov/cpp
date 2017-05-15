@@ -11,18 +11,11 @@ struct Node {
     Node* right;
     Node* parent;
 
-    Node(int i, Node *prnt) {
+    Node(int i, Node *prnt= nullptr) {
         this->value = i;
-        this->left = NULL;
-        this->right = NULL;
+        this->left = nullptr;
+        this->right = nullptr;
         this->parent = prnt;
-    }
-    Node(int i){
-//        Node(i, NULL);
-        this->value = i;
-        this->left = NULL;
-        this->right = NULL;
-        this->parent = NULL;
     }
 };
 
@@ -30,7 +23,7 @@ bool add_node (Node *tree, int value) {
 
     cout << "adding new node " << value << endl;
 
-//    if (tree->left == NULL && tree->right == NULL) {
+//    if (tree->left == nullptr && tree->right == nullptr) {
 //        cout << "new root" << endl;
 //        tree = new Node(value);
 //        return true;
@@ -43,7 +36,7 @@ bool add_node (Node *tree, int value) {
 //        cout << "in while " << i++ ;
         if(curent->value > value) {
 //            cout << "to left" << endl;
-            if (curent->left == NULL) {
+            if (curent->left == nullptr) {
 //                Node *ptr = Node(value);
                 curent->left = new Node(value, curent);
                 break;
@@ -51,7 +44,7 @@ bool add_node (Node *tree, int value) {
             curent = curent->left;
         } else {
 //            cout << "to right" << endl;
-            if (curent->right == NULL) {
+            if (curent->right == nullptr) {
                 curent->right = new Node(value, curent);
                 break;
             }
@@ -64,7 +57,7 @@ bool add_node (Node *tree, int value) {
 }
 
 void print_next(Node *n, int deep, bool orient) {
-    if (n == NULL) {
+    if (n == nullptr) {
         cout << endl;
         return;
     }
@@ -77,41 +70,41 @@ void print_next(Node *n, int deep, bool orient) {
     }
     cout << n->value << endl;
 
-    if (n->left != NULL) {
+    if (n->left != nullptr) {
         print_next(n->left, 1 + deep, true);
     }
 
-    if (n->right != NULL){
+    if (n->right != nullptr){
         print_next(n->right, 1 + deep, false);
     }
 }
 
 void print_tree (Node *n) {
-    if (n == NULL) {
+    if (n == nullptr) {
         cout << endl;
         return;
     }
 
     cout << "root: " << n->value << endl;
 
-    if (n->left != NULL) {
+    if (n->left != nullptr) {
         print_next(n->left, 1, true);
     }
 
-    if (n->right != NULL){
+    if (n->right != nullptr){
         print_next(n->right, 1, false);
     }
 
 }
 
 int remove(Node *n, int k) {
-
+    
 
     return 0;
 }
 
 void print_top_down(Node *node) {
-    if (node == NULL) {
+    if (node == nullptr) {
        return;
     }
     queue<Node *> q;
@@ -122,16 +115,16 @@ void print_top_down(Node *node) {
         q.pop();
         cout << temp->value << " ";
 
-        if ( temp->left != NULL )
+        if ( temp->left != nullptr )
             q.push(temp->left);
 
-        if ( temp->right != NULL )
+        if ( temp->right != nullptr )
             q.push(temp->right);
    }
 }
 
 void branch_print(Node *node) {
-    if (node == NULL) {
+    if (node == nullptr) {
        return;
     }
     cout << node->value << " ";
@@ -140,7 +133,7 @@ void branch_print(Node *node) {
 }
 
 void down_top_print(Node *node) {
-    if (node == NULL) {
+    if (node == nullptr) {
        return;
     }
     down_top_print(node->left);
