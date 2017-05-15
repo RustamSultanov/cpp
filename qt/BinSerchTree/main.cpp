@@ -23,27 +23,19 @@ bool add_node (Node *tree, int value) {
 
     cout << "adding new node " << value << endl;
 
-//    if (tree->left == nullptr && tree->right == nullptr) {
-//        cout << "new root" << endl;
-//        tree = new Node(value);
-//        return true;
-//    }
+
 
     Node *curent = tree;
     int i =0;
 
     while ( true ) {
-//        cout << "in while " << i++ ;
         if(curent->value > value) {
-//            cout << "to left" << endl;
             if (curent->left == nullptr) {
-//                Node *ptr = Node(value);
                 curent->left = new Node(value, curent);
                 break;
             }
             curent = curent->left;
         } else {
-//            cout << "to right" << endl;
             if (curent->right == nullptr) {
                 curent->right = new Node(value, curent);
                 break;
@@ -97,12 +89,6 @@ void print_tree (Node *n) {
 
 }
 
-int remove(Node *n, int k) {
-    
-
-    return 0;
-}
-
 void print_top_down(Node *node) {
     if (node == nullptr) {
        return;
@@ -141,6 +127,46 @@ void down_top_print(Node *node) {
     cout << node->value << " ";
 }
 
+Node* find_node (Node *root, int k) {
+    if (root->left == nullptr && root->right == nullptr) 
+        return nullptr;
+    
+    Node *found;
+//    new(found) Node;
+    found = find_node(root->left, k);
+    if (found == nullptr) found = find_node(root->right, k);
+
+    return nullptr;
+}
+
+bool remove_node(Node *kik) {
+    if (kik == nullptr)
+        return false;  
+
+    if (kik->left == nullptr && kik->right == nullptr)  
+        kik = nullptr;
+    
+    if (kik->left != nullptr || kik->right != nullptr) {
+        // тут надо как-то чистить память?ъ
+        if (kik->left != nullptr) {
+            kik->left->parent = kik->parent;
+            kik = kik->left;
+        } else {
+            kik->right->parent = kik->parent;
+            kik = kik->right;
+        }
+    }
+
+    return true;
+}
+
+bool remove_node(Node *n, int k) {
+    Node *kik = find_node(n, k);
+    if (kik == nullptr)
+        return false;
+    return remove_node(kik);;
+}
+
 int main(int argc, char *argv[]) {
 
     cout << "hello! its BST" << endl;
@@ -148,16 +174,21 @@ int main(int argc, char *argv[]) {
     Node *myTree = new Node(0);
 
     add_node(myTree, 1);
-    add_node(myTree, 2);
+//    add_node(myTree, 2);
 //    cout << myTree->right->right->value << endl;
-    add_node(myTree, 3);
-    add_node(myTree, 4);
-    add_node(myTree, -2);
-    add_node(myTree, -1);
-    add_node(myTree, -2);
-    add_node(myTree, -2);
-    add_node(myTree, -5);
-    add_node(myTree, -8);
+//    add_node(myTree, 3);
+//    add_node(myTree, 4);
+//    add_node(myTree, -2);
+//    add_node(myTree, -1);
+//    add_node(myTree, -2);
+//    add_node(myTree, -2);
+//    add_node(myTree, -5);
+//    add_node(myTree, -8);
+
+    print_tree(myTree);
+
+    cout << "deleting" << endl;
+    cout << remove_node(myTree, 1) << endl;
 
     print_tree(myTree);
 
