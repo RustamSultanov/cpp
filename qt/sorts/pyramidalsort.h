@@ -2,14 +2,13 @@
 #define PYRAMIDALSORT_H
 
 
-class PyramidalSort
-{
+class PyramidalSort {
 public:
     PyramidalSort();
-    void pyramidalSort();
-    void heapSort(int Arr[], int Count);
+    void heapSort(int *arr, int cnt);
+    void bst(int *arr, int cnt);
 private:
-    void DownHeap(int Arr[], int index, int Count, int Current);
-}
+    void DownHeap(int *arr, int index, int cnt, int current);
+};
 
 #endif // PYRAMIDALSORT_H

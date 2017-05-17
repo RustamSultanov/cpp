@@ -10,7 +10,7 @@ public:
     void merge_sort(int *arr, int size);
     void quick_sort(int *arr, int size);
     void buble_sort(int *arr, int size);
-    void SortClass::pyramidal_sort(int arr[], int size);
+    void pyramidal_sort(int *arr, int size);
 
 private:
     int steps;

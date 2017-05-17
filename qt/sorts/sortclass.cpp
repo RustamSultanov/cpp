@@ -96,7 +96,7 @@ void SortClass::merge_sort (int *arr, int size) {
     print_sorted();
 }
 
-void SortClass::quick_sort(int arr[], int size) {
+void SortClass::quick_sort(int *arr, int size) {
     cout << "quick_sort:" << endl;
 
     if (arr == nullptr) {
@@ -131,7 +131,7 @@ void SortClass::quick_sort(int arr[], int size) {
     print_sorted();
 }
 
-void SortClass::pyramidal_sort(int arr[], int size) {
+void SortClass::pyramidal_sort(int *arr, int size) {
     cout << "quick_sort:" << endl;
 
     if (arr == nullptr) {
@@ -153,7 +153,7 @@ void SortClass::pyramidal_sort(int arr[], int size) {
 
     PyramidalSort *ps = new PyramidalSort();
 
-    qs->quickSort(arr, 0, size - 1);
+    ps->heapSort(arr, size);
 
     this->sorted = true;
 
@@ -162,8 +162,11 @@ void SortClass::pyramidal_sort(int arr[], int size) {
         s[k] = arr[k];
 
     this->sorted_arr = s;
-
     print_sorted();
+
+    cout << endl << endl << "BST:" << endl;
+
+    ps->bst(arr, size);
 }
 
 

@@ -11,7 +11,7 @@ int main() {
 
     SortClass *obj = new SortClass(arr, 5);
 
-    obj->buble_sort(arr, 5);
+    obj->pyramidal_sort(arr, 5);
     cout << endl;
 
 //    obj->merge_sort(arr, 5);
