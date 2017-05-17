@@ -1,4 +1,7 @@
 #include "sortclass.h"
+#include "mergesort.h"
+#include "quicksort.h"
+#include "pyramidalsort.h"
 #include <iostream>
 
 using namespace std;
@@ -16,7 +19,9 @@ SortClass::SortClass() {
 }
 
 // public
-void SortClass::buble_sort(int *arr = nullptr, int size = 0) {
+void SortClass::buble_sort(int *arr, int size) {
+    cout << "buble_sort:" << endl;
+
     if (arr == nullptr) {
         if (this->source_arr == nullptr || this->size == nullptr) {
             cout << "you must define array pointer and size" << endl;
@@ -24,7 +29,12 @@ void SortClass::buble_sort(int *arr = nullptr, int size = 0) {
         arr = this->source_arr;
         size = *this->size;
     } else {
-        this->source_arr = arr;
+
+        int *i = new int[size];
+        for(int k = 0; k < size; ++k)
+            i[k] = arr[k];
+
+        this->source_arr = i;
         *this->size = size;
     }
 
@@ -33,20 +43,26 @@ void SortClass::buble_sort(int *arr = nullptr, int size = 0) {
     for(int i = 1; i < size; ++i) {
         for(int j = 0; j < size-i; j++) {
             if(arr[j] > arr[j+1]) {
-                // change
-                int temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
+                // place changing
+                swap(arr[j], arr[j+1]);
             }
         }
     }
     this->sorted = true;
-    this->sorted_arr = arr;
+
+    int *s = new int[size];
+    for(int k = 0; k < size; ++k)
+        s[k] = arr[k];
+
+    this->sorted_arr = s;
+
     print_sorted();
 }
 
 
-void SortClass::merge_sort (int *arr = nullptr, int size = 0) {
+void SortClass::merge_sort (int *arr, int size) {
+    cout << "merge_sort:" << endl;
+
     if (arr == nullptr) {
         if (this->source_arr == nullptr || this->size == nullptr) {
             cout << "you must define array pointer and size" << endl;
@@ -54,21 +70,100 @@ void SortClass::merge_sort (int *arr = nullptr, int size = 0) {
         arr = this->source_arr;
         size = *this->size;
     } else {
+
+        int *i = new int[size];
+        for(int k = 0; k < size; ++k)
+            i[k] = arr[k];
+
         this->source_arr = arr;
         *this->size = size;
     }
 
     print_source();
 
+    MergeSort *mrg = new MergeSort();
+
+    mrg->mergeSort(arr, 0, size-1);
 
 
     this->sorted = true;
-    this->sorted_arr = arr;
+
+    int *s = new int[size];
+    for(int k = 0; k < size; ++k)
+        s[k] = arr[k];
+
+    this->sorted_arr = s;
     print_sorted();
 }
 
-void SortClass::quick_sort(int *arr = nullptr, int size = 0) {
+void SortClass::quick_sort(int arr[], int size) {
+    cout << "quick_sort:" << endl;
 
+    if (arr == nullptr) {
+        if (this->source_arr == nullptr || this->size == nullptr) {
+            cout << "you must define array pointer and size" << endl;
+        }
+        arr = this->source_arr;
+        size = *this->size;
+    } else {
+        int *i = new int[size];
+        for(int k = 0; k < size; ++k)
+            i[k] = arr[k];
+
+        this->source_arr = arr;
+        *this->size = size;
+    }
+
+    print_source();
+
+    QuickSort *qs = new QuickSort();
+
+    qs->quickSort(arr, 0, size - 1);
+
+    this->sorted = true;
+
+    int *s = new int[size];
+    for(int k = 0; k < size; ++k)
+        s[k] = arr[k];
+
+    this->sorted_arr = s;
+
+    print_sorted();
+}
+
+void SortClass::pyramidal_sort(int arr[], int size) {
+    cout << "quick_sort:" << endl;
+
+    if (arr == nullptr) {
+        if (this->source_arr == nullptr || this->size == nullptr) {
+            cout << "you must define array pointer and size" << endl;
+        }
+        arr = this->source_arr;
+        size = *this->size;
+    } else {
+        int *i = new int[size];
+        for(int k = 0; k < size; ++k)
+            i[k] = arr[k];
+
+        this->source_arr = arr;
+        *this->size = size;
+    }
+
+    print_source();
+
+    PyramidalSort *ps = new PyramidalSort();
+
+    qs->quickSort(arr, 0, size - 1);
+
+    this->sorted = true;
+
+    int *s = new int[size];
+    for(int k = 0; k < size; ++k)
+        s[k] = arr[k];
+
+    this->sorted_arr = s;
+
+    print_sorted();
 }
 
 
