@@ -12,7 +12,7 @@ struct Node {
     Node* parent;
 
     Node(int i, Node *prnt = nullptr) {
-        *value = i;
+        value = new int(i);
         left = nullptr;
         right = nullptr;
         parent = prnt;
@@ -171,17 +171,23 @@ bool remove_node(Node *kik) {
     
     // one child
     if (kik->left != nullptr || kik->right != nullptr) {
-        // тут надо как-то чистить память?ъ
         if (kik->left != nullptr) {
-            kik->left->parent = kik->parent;
-            Node *trash = kik->left;
-            kik = kik->left;
-            delete(trash);
+            clean_parent(kik, kik->left);
+            delete(kik);
         } else {
-            kik->right->parent = kik->parent;
-            Node *trash = kik->right;
-            kik = kik->right;
-            delete(trash);
+            clean_parent(kik, kik->right);
+            delete(kik);
+        }
+    }
+
+    // 2 childres
+    if (kik->left != nullptr && kik->right != nullptr) {
+        if (kik->left != nullptr) {
+            clean_parent(kik, kik->left);
+            delete(kik);
+        } else {
+            clean_parent(kik, kik->right);
+            delete(kik);
         }
     }
 
