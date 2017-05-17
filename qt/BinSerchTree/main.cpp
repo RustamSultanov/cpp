@@ -27,10 +27,9 @@ struct Node {
 
 bool add_node (Node *tree, int value) {
 
-    cout << "adding new node " << value << endl;
+//    cout << "adding new node " << value << endl;
 
     Node *curent = tree;
-    int i =0;
 
     while ( true ) {
         if(*curent->value > value) {
@@ -147,6 +146,15 @@ Node* find_node (Node *root, int k) {
     return found;
 }
 
+Node* find_next (Node *root) {
+    Node *current = root->right;
+
+    while (current->left != nullptr)
+        current = current->left;
+
+    return current;
+}
+
 bool clean_parent(Node *node, Node *child) {
     if(node->parent != nullptr) {
         if (*node->parent->value < *node->value) {
@@ -169,26 +177,39 @@ bool remove_node(Node *kik) {
         return true;
     }
     
+    // 2 childres
+    if (kik->left != nullptr && kik->right != nullptr) {
+        cout << "difficult delete";
+        Node *next = find_next(kik);
+        Node *clone = new Node();
+
+        clone->parent = kik->parent;
+        clone->left = kik->left;
+        clone->right = kik->right;
+        clone->value = new int(*next->value);
+
+        kik->left->parent = clone;
+        kik->right->parent = clone;
+
+        if (!remove_node(next) || !clean_parent(kik, clone))
+            return false;
+
+        delete(kik);
+
+        return true;
+    }
+
     // one child
     if (kik->left != nullptr || kik->right != nullptr) {
         if (kik->left != nullptr) {
             clean_parent(kik, kik->left);
             delete(kik);
         } else {
-            clean_parent(kik, kik->right);
+            if (!clean_parent(kik, kik->right))
+                return false;
             delete(kik);
         }
-    }
-
-    // 2 childres
-    if (kik->left != nullptr && kik->right != nullptr) {
-        if (kik->left != nullptr) {
-            clean_parent(kik, kik->left);
-            delete(kik);
-        } else {
-            clean_parent(kik, kik->right);
-            delete(kik);
-        }
+        return true;
     }
 
     return false;
@@ -208,21 +229,28 @@ int main(int argc, char *argv[]) {
     Node *myTree = new Node(0);
 
     add_node(myTree, 1);
+    add_node(myTree, 3);
     add_node(myTree, 2);
-//    cout << *myTree->right->right->value << endl;
-//    add_node(myTree, 3);
-//    add_node(myTree, 4);
-//    add_node(myTree, -2);
-//    add_node(myTree, -1);
-//    add_node(myTree, -2);
-//    add_node(myTree, -2);
-//    add_node(myTree, -5);
-//    add_node(myTree, -8);
+//    add_node(myTree, 0);
+    add_node(myTree, 3);
+    add_node(myTree, 4);
+    add_node(myTree, -2);
+    add_node(myTree, -1);
+    add_node(myTree, -2);
+    add_node(myTree, -2);
+    add_node(myTree, -5);
+    add_node(myTree, -8);
 
     print_tree(myTree);
 
+//    cout << "deleting" << endl;
+//    cout << "delete ok? -> " << remove_node(myTree, 1) << endl;
+
     cout << "deleting" << endl;
-    cout << "delete ok? -> " << remove_node(myTree, 1) << endl;
+    cout << "delete ok? -> " << remove_node(myTree, 0) << endl;
+
+//    cout << "deleting" << endl;
+//    cout << "delete ok? -> " << remove_node(myTree, 0) << endl;
 
     print_tree(myTree);
 
@@ -230,7 +258,7 @@ int main(int argc, char *argv[]) {
     print_top_down(myTree);
     cout << endl;
 
-    cout << endl << "preorderPrint;" << endl;
+    cout << endl << "branch_print;" << endl;
     branch_print(myTree);
     cout << endl;
 
