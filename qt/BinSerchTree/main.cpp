@@ -6,16 +6,22 @@ using namespace std;
 
 
 struct Node {
-    int value;
+    int* value;
     Node* left;
     Node* right;
     Node* parent;
 
-    Node(int i, Node *prnt= nullptr) {
-        this->value = i;
-        this->left = nullptr;
-        this->right = nullptr;
-        this->parent = prnt;
+    Node(int i, Node *prnt = nullptr) {
+        *value = i;
+        left = nullptr;
+        right = nullptr;
+        parent = prnt;
+    }
+    Node() {
+        value = nullptr;
+        left = nullptr;
+        right = nullptr;
+        parent = nullptr;
     }
 };
 
@@ -23,13 +29,11 @@ bool add_node (Node *tree, int value) {
 
     cout << "adding new node " << value << endl;
 
-
-
     Node *curent = tree;
     int i =0;
 
     while ( true ) {
-        if(curent->value > value) {
+        if(*curent->value > value) {
             if (curent->left == nullptr) {
                 curent->left = new Node(value, curent);
                 break;
@@ -44,7 +48,6 @@ bool add_node (Node *tree, int value) {
         }
     }
     tree = curent;
-
     return false;
 }
 
@@ -60,7 +63,7 @@ void print_next(Node *n, int deep, bool orient) {
     } else {
         cout << "right: ";
     }
-    cout << n->value << endl;
+    cout << *n->value << endl;
 
     if (n->left != nullptr) {
         print_next(n->left, 1 + deep, true);
@@ -77,7 +80,7 @@ void print_tree (Node *n) {
         return;
     }
 
-    cout << "root: " << n->value << endl;
+    cout << "root: " << *n->value << endl;
 
     if (n->left != nullptr) {
         print_next(n->left, 1, true);
@@ -99,7 +102,7 @@ void print_top_down(Node *node) {
     while (!q.empty() ) {
         Node* temp = q.front();
         q.pop();
-        cout << temp->value << " ";
+        cout << *temp->value << " ";
 
         if ( temp->left != nullptr )
             q.push(temp->left);
@@ -113,7 +116,7 @@ void branch_print(Node *node) {
     if (node == nullptr) {
        return;
     }
-    cout << node->value << " ";
+    cout << *node->value << " ";
     branch_print(node->left);
     branch_print(node->right);
 }
@@ -124,40 +127,65 @@ void down_top_print(Node *node) {
     }
     down_top_print(node->left);
     down_top_print(node->right);
-    cout << node->value << " ";
+    cout << *node->value << " ";
 }
 
 Node* find_node (Node *root, int k) {
+    if (root == nullptr)
+        return nullptr;
+    if (*root->value == k)
+        return root;
+
     if (root->left == nullptr && root->right == nullptr) 
         return nullptr;
     
-    Node *found;
+    Node *found = nullptr;
 //    new(found) Node;
     found = find_node(root->left, k);
     if (found == nullptr) found = find_node(root->right, k);
 
-    return nullptr;
+    return found;
+}
+
+bool clean_parent(Node *node, Node *child) {
+    if(node->parent != nullptr) {
+        if (*node->parent->value < *node->value) {
+            node->parent->right = child;
+        } else {
+            node->parent->left = child;
+        }
+        return true;
+    }
+    return false;
 }
 
 bool remove_node(Node *kik) {
-    if (kik == nullptr)
-        return false;  
+    if (kik == nullptr) return false;
 
-    if (kik->left == nullptr && kik->right == nullptr)  
-        kik = nullptr;
+    // leave element
+    if (kik->left == nullptr && kik->right == nullptr) {
+        clean_parent(kik, nullptr);
+        delete(kik);
+        return true;
+    }
     
+    // one child
     if (kik->left != nullptr || kik->right != nullptr) {
         // тут надо как-то чистить память?ъ
         if (kik->left != nullptr) {
             kik->left->parent = kik->parent;
+            Node *trash = kik->left;
             kik = kik->left;
+            delete(trash);
         } else {
             kik->right->parent = kik->parent;
+            Node *trash = kik->right;
             kik = kik->right;
+            delete(trash);
         }
     }
 
-    return true;
+    return false;
 }
 
 bool remove_node(Node *n, int k) {
@@ -174,8 +202,8 @@ int main(int argc, char *argv[]) {
     Node *myTree = new Node(0);
 
     add_node(myTree, 1);
-//    add_node(myTree, 2);
-//    cout << myTree->right->right->value << endl;
+    add_node(myTree, 2);
+//    cout << *myTree->right->right->value << endl;
 //    add_node(myTree, 3);
 //    add_node(myTree, 4);
 //    add_node(myTree, -2);
@@ -188,7 +216,7 @@ int main(int argc, char *argv[]) {
     print_tree(myTree);
 
     cout << "deleting" << endl;
-    cout << remove_node(myTree, 1) << endl;
+    cout << "delete ok? -> " << remove_node(myTree, 1) << endl;
 
     print_tree(myTree);
 
