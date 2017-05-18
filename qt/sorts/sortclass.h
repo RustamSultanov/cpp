@@ -13,14 +13,12 @@ public:
     void pyramidal_sort(int *arr, int size);
 
 private:
-    int steps;
     int *source_arr;
     int *sorted_arr;
     int *size;
     bool sorted;
     void print_source();
     void print_sorted();
-    void print_steps_count();
 };
 
 #endif // SORTCLASS_H

@@ -45,6 +45,7 @@ void MergeSort::merge(int *arr, int l, int m, int r) {
 }
 
 void MergeSort::mergeSort(int *arr, int l, int r) {
+
     if (l < r) {
         int m = l+(r-l)/2;
 
@@ -53,4 +54,6 @@ void MergeSort::mergeSort(int *arr, int l, int r) {
 
         merge(arr, l, m, r);
     }
+
+//    return steps;
 }

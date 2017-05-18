@@ -3,6 +3,10 @@
 #include "quicksort.h"
 #include "pyramidalsort.h"
 #include <iostream>
+//#include <x86intrin.h>
+#include <stdio.h>
+
+
 
 using namespace std;
 
@@ -11,6 +15,7 @@ SortClass::SortClass(int arr[], int size) {
     this->source_arr = arr;
     this->size = new int(size);
     this->sorted = false;
+//    this->steps = 0;
 }
 
 SortClass::SortClass() {
@@ -58,7 +63,6 @@ void SortClass::buble_sort(int *arr, int size) {
 
     print_sorted();
 }
-
 
 void SortClass::merge_sort (int *arr, int size) {
     cout << "merge_sort:" << endl;
@@ -132,7 +136,7 @@ void SortClass::quick_sort(int *arr, int size) {
 }
 
 void SortClass::pyramidal_sort(int *arr, int size) {
-    cout << "quick_sort:" << endl;
+    cout << "pyramidal:" << endl;
 
     if (arr == nullptr) {
         if (this->source_arr == nullptr || this->size == nullptr) {
@@ -164,36 +168,31 @@ void SortClass::pyramidal_sort(int *arr, int size) {
     this->sorted_arr = s;
     print_sorted();
 
-    cout << endl << endl << "BST:" << endl;
-
-    ps->bst(arr, size);
 }
 
 
 // private
 void SortClass::print_sorted() {
-    if (this->source_arr == nullptr) {
-        cout << "source array not defined" << endl;
-        return;
-    }
-    cout << "sorted arr" << endl;
-    for (int i = 0; i < *this->size; ++i) {
-        cout << i << ": " << (this->sorted_arr[i]) << endl;
-    }
+//    if (this->source_arr == nullptr) {
+//        cout << "source array not defined" << endl;
+//        return;
+//    }
+//    cout << "sorted arr" << endl;
+//    for (int i = 0; i < *this->size; ++i) {
+//        cout << (this->sorted_arr[i]) << " ";
+//    }
+//    cout << endl;
 }
 
 void SortClass::print_source() {
-    if (this->source_arr == nullptr) {
-        cout << "source array not defined" << endl;
-        return;
-    }
-    cout << "source arr" << endl;
-    for (int i = 0; i < *this->size; ++i) {
-        cout << i << ": " << (this->source_arr[i]) << endl;
-    }
-
+//    if (this->source_arr == nullptr) {
+//        cout << "source array not defined" << endl;
+//        return;
+//    }
+//    cout << "source arr" << endl;
+//    for (int i = 0; i < *this->size; ++i) {
+//        cout << (this->source_arr[i]) << " ";
+//    }
+//    cout << endl;
 }
 
-void SortClass::print_steps_count() {
-
-}

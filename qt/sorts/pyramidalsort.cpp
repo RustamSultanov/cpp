@@ -8,6 +8,7 @@ PyramidalSort::PyramidalSort()
 
 }
 
+
 void PyramidalSort::DownHeap(int *arr, int index, int cnt, int current) {
     int child;
 
@@ -33,11 +34,19 @@ void PyramidalSort::heapSort(int *arr, int cnt) {
     for (i = (cnt/2)-1; i > 0; i--)
         DownHeap(arr, i, cnt, arr[i]);
 
+    for(i = 0; i < cnt ; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+
     for (i = cnt-1; i > 0; i--) {
         current = arr[i];
         arr[i] = arr[0];
         DownHeap(arr, 0, i, current);
     }
+
+
+
+//    return steps;
 }
 
 void PyramidalSort::bst(int *arr, int cnt) {
@@ -45,17 +54,16 @@ void PyramidalSort::bst(int *arr, int cnt) {
     int i;
     int current;
 
-    for (i = (cnt/2)-1; i > 0; i--)
-        DownHeap(arr, i, cnt, arr[i]);
-
-    int sep = 1;
-    for(i = 0; i < cnt; ++i) {
+    int level = 1;
+    int k = 0;
+    for(i = 0; i < cnt ; i++) {
         cout << arr[i] << " ";
-
-        if (sep == i+1) {
-            sep += sep * 2;
-            cout << endl;
-        }
+        ++k;
+//        if (k == level) {
+//            k = 0;
+//            level = level * 2;
+//            cout << endl;
+//        }
     }
-    cout << endl;
+//    cout << endl;
 }
